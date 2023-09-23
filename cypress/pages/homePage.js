@@ -1,6 +1,6 @@
 class HomePage {
   visit() {
-    cy.visit("https://automationexercise.com/");
+    cy.visit("/");
   }
 
   isHomePageVisible() {
@@ -8,4 +8,4 @@ class HomePage {
   }
 }
 
-export default new HomePage();
+export default HomePage;
