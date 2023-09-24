@@ -39,7 +39,7 @@ class CartPage {
   }
 
   getCheckoutButton() {
-    cy.get(".btn btn-default check_out");
+    return cy.get(".btn btn-default check_out");
   }
 
   clickCheckoutButton() {

@@ -4,6 +4,7 @@ import SignupPage from "../pages/signupPage";
 import ProductPage from "../pages/productPage";
 import ProductDetailsPage from "../pages/productDetailsPage";
 import CartPage from "../pages/cartPage";
+import PaymentPage from "../pages/paymentPage";
 
 const home = new HomePage();
 const login = new LoginPage();
@@ -11,6 +12,15 @@ const signup = new SignupPage();
 const products = new ProductPage();
 const productDetails = new ProductDetailsPage()
 const cart = new CartPage()
+const payment = new PaymentPage()
+
+const cardInfo = {
+  cName: "Mamodolla",
+  cNumber: '69759',
+  cCVC: '313',
+  cMonth: '12',
+  cYear: '2099'
+}
 
 const userParams = {
   password: "123456",
@@ -106,6 +116,12 @@ describe("automation exercise", () => {
     cart.verifyData()
     cart.getCheckoutButton().should('not.be.disabled')
     cart.clickCheckoutButton()
+    payment.fillCard(cardInfo)
+    payment.clickPay()
+    cy.url().should("include", "/payment_done");
+    cy.get('.btn btn-default check_out').click()
+    cy.get('a[href="/logout"]').click();
+
   });
 });
 
