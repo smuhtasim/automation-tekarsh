@@ -8,30 +8,29 @@ class CartPage {
     cy.visit("/view_cart");
   }
 
-  calculateTotal(price, quantity) {
-    return price * quantity;
-  }
 
-  verifyData() {
-    cy.get("tr")
+  
+  async verifyData() {
+     cy.get("tr")
       .eq(1)
       .within(() => {
         cy.get(".cart_price p")
           .invoke("text")
           .then((text) => {
-            this.PRICE = parseInt(text.match(/-?\d+/)[0], 10);
+            this.PRICE = parseInt( text.replace(/[^0-9+\-*/]/g, ""), 10);
+            cy.log("%%",this.PRICE)
           });
-
-        cy.get(".cart_quantity button")
-          .invoke("text")
-          .then((text) => {
-            this.QUANTITY = parseInt(text.match(/-?\d+/)[0], 10);
-          });
+        debugger;
+        var quantity = cy.get(".cart_quantity button").invoke("text")
+        cy.log("&*",quantity)
+        //   .then((text) => {
+        //     this.QUANTITY = parseInt(text.replace(/[^0-9+\-*/]/g, ""), 10);
+        //     cy.log("##", this.QUANTITY);
+        //   });
+        this.QUANTITY = parseInt(quantity.replace(/[^0-9+\-*/]/g, ""), 10);
       });
 
-    const total = this.PRICE * this.QUANTITY;
-
-    cy.get(".cart_total_price").should("have.text", `Rs. ${total}`);
+     cy.get(".cart_total_price").should("have.text", `Rs. ${this.PRICE * this.QUANTITY}`);
   }
 
   selectProduct() {
@@ -43,7 +42,7 @@ class CartPage {
   }
 
   getCheckoutButton() {
-    return cy.get(".btn btn-default check_out");
+    return cy.get(".col-sm-6 > .btn");
   }
 
   clickCheckoutButton() {

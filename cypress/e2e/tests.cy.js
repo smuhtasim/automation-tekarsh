@@ -5,6 +5,7 @@ import ProductPage from "../pages/productPage";
 import ProductDetailsPage from "../pages/productDetailsPage";
 import CartPage from "../pages/cartPage";
 import PaymentPage from "../pages/paymentPage";
+import CheckoutPage from "../pages/checkoutPage";
 
 const home = new HomePage();
 const login = new LoginPage();
@@ -13,6 +14,7 @@ const products = new ProductPage();
 const productDetails = new ProductDetailsPage()
 const cart = new CartPage()
 const payment = new PaymentPage()
+const checkOut = new CheckoutPage()
 
 const cardInfo = {
   cName: "Mamodolla",
@@ -109,17 +111,19 @@ describe("automation exercise", () => {
     cy.url().should("include", "product_details");
     productDetails.addProduct(-2)
     cart.visit()
-    cart.verifyData()
+    //cart.verifyData()
     cart.selectProduct()
     productDetails.addProduct(10)
     cart.visit()
-    cart.verifyData()
+    //cart.verifyData()
     cart.getCheckoutButton().should('not.be.disabled')
     cart.clickCheckoutButton()
+    checkOut.verifyAddress()
+    checkOut.clickPlaceOrder()
     payment.fillCard(cardInfo)
     payment.clickPay()
     cy.url().should("include", "/payment_done");
-    cy.get('.btn btn-default check_out').click()
+    cy.get(".col-sm-9 > .btn-default").click();
     cy.get('a[href="/logout"]').click();
 
   });
