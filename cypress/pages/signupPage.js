@@ -1,22 +1,22 @@
 class SignupPage {
-  setTitle() {
+  checkTitle() {
     cy.get("#id_gender1").check();
   }
 
-  setPassword(password) {
-    cy.get('input[data-qa="password"]').type(password);
+  getPassword() {
+    return cy.get('input[data-qa="password"]');
   }
 
-  setBirthDate(date) {
-    cy.get("#days").select(date);
+  getBirthDate() {
+    return cy.get("#days");
   }
 
-  setBirthMonth(month) {
-    cy.get("#months").select(month);
+  getBirthMonth() {
+    return cy.get("#months");
   }
 
-  setBirthYear(year) {
-    cy.get("#years").select(year);
+  getBirthYear() {
+    return cy.get("#years");
   }
 
   checkNews() {
@@ -27,45 +27,69 @@ class SignupPage {
     cy.get("#optin").check();
   }
 
-  setFirstName(fname) {
-    cy.get("#first_name").type(fname);
+  getFirstName() {
+    return cy.get("#first_name");
   }
 
-  setLastName(lname) {
-    cy.get("#last_name").type(lname);
+  getLastName() {
+    return cy.get("#last_name");
   }
 
-  setCompany(company) {
-    cy.get("#company").type(company);
+  getCompany() {
+    return cy.get("#company");
   }
 
-  setAddress(address1, address2) {
-    cy.get("#address1").type(address1);
-    cy.get("#address2").type(address2);
+  getAddress1() {
+    return cy.get("#address1");
   }
 
-  setCountry(country) {
-    cy.get("#country").select(country);
+  getAddress2() {
+    return cy.get("#address2");
   }
 
-  setState(state) {
-    cy.get("#state").type(state);
+  getCountry() {
+    return cy.get("#country");
   }
 
-  setCity(city) {
-    cy.get("#city").type(city);
+  getState() {
+    return cy.get("#state");
   }
 
-  setZipcode(zipcode) {
-    cy.get("#zipcode").type(zipcode);
+  getCity() {
+    return cy.get("#city");
   }
 
-  setMobileNumber(mobileNumber) {
-    cy.get("#mobile_number").type(mobileNumber);
+  getZipcode() {
+    return cy.get("#zipcode");
+  }
+
+  getMobileNumber() {
+    return cy.get("#mobile_number");
   }
 
   clickCreateAccount() {
     cy.get('button[data-qa="create-account"]').click();
+  }
+
+  createNewUser(params) {
+    this.checkTitle();
+    this.getPassword().type(params.password);
+    this.getBirthDate().select(params.date);
+    this.getBirthMonth().select(params.month);
+    this.getBirthYear().select(params.year);
+    this.checkNews();
+    this.checkOffers();
+    this.getFirstName().type(params.fname);
+    this.getLastName().type(params.lname);
+    this.getCompany().type(params.company);
+    this.getAddress1().type(params.address1);
+    this.getAddress2().type(params.address2);
+    this.getCountry().select(params.country);
+    this.getState().type(params.state);
+    this.getCity().type(params.city);
+    this.getZipcode().type(params.zipcode);
+    this.getMobileNumber().type(params.mobileNumber);
+    this.clickCreateAccount();
   }
 }
 
