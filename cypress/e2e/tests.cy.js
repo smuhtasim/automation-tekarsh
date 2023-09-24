@@ -2,11 +2,15 @@ import HomePage from "../pages/homePage";
 import LoginPage from "../pages/loginPage";
 import SignupPage from "../pages/signupPage";
 import ProductPage from "../pages/productPage";
+import ProductDetailsPage from "../pages/productDetailsPage";
+import CartPage from "../pages/cartPage";
 
 const home = new HomePage();
 const login = new LoginPage();
 const signup = new SignupPage();
 const products = new ProductPage();
+const productDetails = new ProductDetailsPage()
+const cart = new CartPage()
 
 const userParams = {
   password: "123456",
@@ -80,7 +84,7 @@ describe("automation exercise", () => {
   //   cy.title().should("eq", "Automation Exercise - Product Details");
   // })
 
-  it("7 8 9. Search Product, view product, quantity, cart", () => {
+  it("7 to rest. Search Product, view product, quantity, cart", () => {
     login.loginUser(correctCredential);
     products.visit();
     products.getSearchProduct().type("polo");
@@ -93,12 +97,15 @@ describe("automation exercise", () => {
         cy.get("a").contains("View Product").click();
       });
     cy.url().should("include", "product_details");
-    
+    productDetails.addProduct(-2)
+    cart.visit()
+    cart.verifyData()
+    cart.selectProduct()
+    productDetails.addProduct(10)
+    cart.visit()
+    cart.verifyData()
+    cart.getCheckoutButton().should('not.be.disabled')
+    cart.clickCheckoutButton()
   });
 });
 
-// body > section:nth-child(3) > div > div > div.col-sm-9.padding-right > div > div:nth-child(3) > div > div.choose > ul > li > a
-// body > section:nth-child(3) > div > div > div.col-sm-9.padding-right > div > div:nth-child(3) > div > div.choose > ul > li > a
-// body > section:nth-child(3) > div > div > div.col-sm-9.padding-right > div > div:nth-child(4) > div > div.choose > ul > li > a
-
-// body > section:nth-child(3) > div > div > div.col-sm-9.padding-right > div.features_items > div:nth-child(4) > div > div.choose > ul > li > a

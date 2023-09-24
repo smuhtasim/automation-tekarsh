@@ -1,6 +1,10 @@
 class ProductDetailsPage {
 
-
+    addProduct(quantity) {
+        this.getQuantity().clear().type(quantity)
+        this.clickAddToCart()
+        this.clickContinue()
+    }
 
     getQuantity() {
         return cy.get("#quantity");
@@ -16,3 +20,5 @@ class ProductDetailsPage {
         });
     }
 }
+
+export default ProductDetailsPage
