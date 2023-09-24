@@ -8,10 +8,12 @@ class ProductPage {
     }
 
     getSearchProduct() {
-        
+        return cy.get("#search_product");
     }
 
-    
+    clickSearch() {
+        cy.get("#submit_search").click();
+    }
 }
 
 export default ProductPage

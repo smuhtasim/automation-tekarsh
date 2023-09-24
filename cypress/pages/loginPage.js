@@ -3,12 +3,19 @@ class LoginPage {
     cy.visit("/login");
   }
 
-  setLoginEmail(email) {
-    cy.get('input[data-qa="login-email"]').type(email);
+  getLoginEmail() {
+    return cy.get('input[data-qa="login-email"]');
   }
 
-  setLoginPassword(password) {
-    cy.get('input[data-qa="login-password"]').type(password);
+  getLoginPassword() {
+    return cy.get('input[data-qa="login-password"]');
+  }
+
+  loginUser(params) {
+    this.visit()
+    this.getLoginEmail().type(params.email)
+    this.getLoginPassword().type(params.password)
+    this.clickLogin()
   }
 
   clickLogin() {
