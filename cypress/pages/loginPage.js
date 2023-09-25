@@ -18,16 +18,22 @@ class LoginPage {
     this.clickLogin()
   }
 
+  signupUser(params) {
+    this.getSignupName().type(params.name)
+    this.getSignupEmail().type(params.email)
+    this.clickSignup()
+  }
+
   clickLogin() {
     cy.get('button[data-qa="login-button"]').click();
   }
   
-  setSignupName(name) {
-    cy.get('input[data-qa="signup-name"]').type(name);
+  getSignupName() {
+    return cy.get('input[data-qa="signup-name"]');
   }
 
-  setSignupEmail(email) {
-    cy.get('input[data-qa="signup-email"]').type(email);
+  getSignupEmail() {
+    return cy.get('input[data-qa="signup-email"]');
   }
 
   clickSignup() {
